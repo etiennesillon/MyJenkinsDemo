@@ -7,9 +7,11 @@ import java.rmi.UnexpectedException;
 import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 
+import com.saucelabs.Pages.DemoCartPage;
 import com.saucelabs.Pages.DemoLoginPage;
+import com.saucelabs.Pages.DemoShopPage;
 
-public class DemoLoginTest extends TestBase {
+public class DemoEnd2EndTest extends TestBase {
 	
     private static String USERNAME = "standard_user";
     private static String PASSWD = "secret_sauce";
@@ -20,11 +22,14 @@ public class DemoLoginTest extends TestBase {
         this.createDriver(browser, version, os, method.getName());
         WebDriver driver = this.getWebDriver();
 
-        this.annotate("Visiting Deno Login page...");
-        DemoLoginPage page = DemoLoginPage.visitPage(driver);
+        this.annotate("Visiting Demo Login page...");
+        DemoLoginPage loginPage = DemoLoginPage.visitPage(driver);
 
         this.annotate(String.format("Login in with: \"%s\"", USERNAME));
-        page.login(USERNAME, PASSWD);
+        DemoShopPage shopPage = loginPage.login(USERNAME, PASSWD);
+
+        this.annotate(String.format("Add item and go to cart", USERNAME));
+        DemoCartPage cart = shopPage.selectItemAndGotToCart();
 
     }
 

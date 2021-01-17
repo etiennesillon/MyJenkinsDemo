@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
-public class DemoLoginPage {
+public class DemoLoginPage extends PageBase {
 	
     /***************************************************************/
     
@@ -21,7 +21,6 @@ public class DemoLoginPage {
         
     /***************************************************************/
     
-    public WebDriver driver;
     public static String url = "http://www.saucedemo.com";
 
     /***************************************************************/
@@ -35,7 +34,7 @@ public class DemoLoginPage {
     /***************************************************************/
     
     public DemoLoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -47,10 +46,15 @@ public class DemoLoginPage {
 
     /***************************************************************/
     
-    public void login(String userName, String password) {
+    public DemoShopPage login(String userName, String password) {
+    	
     	this.userName.sendKeys(userName);
     	this.password.sendKeys(password);
+    	
     	submitButton.click();
+    	
+    	return new DemoShopPage(driver);
+    	
     }
     
 }
