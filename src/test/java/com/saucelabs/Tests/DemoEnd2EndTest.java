@@ -30,6 +30,8 @@ public class DemoEnd2EndTest extends TestBase {
 
         this.annotate(String.format("Add item and go to cart", USERNAME));
         DemoCartPage cart = shopPage.selectItemAndGotToCart();
+        
+        driver.quit();
 
     }
 

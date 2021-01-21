@@ -5,10 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.rmi.UnexpectedException;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -38,14 +36,33 @@ public class TestBase  {
 
     @DataProvider(name = "hardCodedBrowsers", parallel = true)
     public static Object[][] sauceBrowserDataProvider(Method testMethod) {
+    	
         return new Object[][]{
-                new Object[]{"MicrosoftEdge", "14.14393", "Windows 10"},
-                new Object[]{"firefox", "49.0", "Windows 10"},
-                new Object[]{"internet explorer", "11.0", "Windows 7"},
-                new Object[]{"safari", "10.0", "OS X 10.11"},
-                new Object[]{"chrome", "54.0", "OS X 10.10"},
-                new Object[]{"firefox", "latest-1", "Windows 7"},
+        	
+                new Object[]{"internet explorer", "latest", "Windows 7"},
+                new Object[]{"firefox", "latest", "Windows 7"},
+                new Object[]{"chrome", "latest", "Windows 7"},
+
+                new Object[]{"internet explorer", "latest", "Windows 8"},
+                new Object[]{"firefox", "latest", "Windows 8"},
+                new Object[]{"chrome", "latest", "Windows 8"},
+
+                new Object[]{"MicrosoftEdge", "latest", "Windows 10"},
+                new Object[]{"internet explorer", "latest", "Windows 10"},
+                new Object[]{"firefox", "latest", "Windows 10"},
+                new Object[]{"chrome", "latest", "Windows 10"},
+
+                new Object[]{"MicrosoftEdge", "latest", "macOS 10.15"},
+                new Object[]{"firefox", "latest", "macOS 10.15"},
+                new Object[]{"safari", "latest", "macOS 10.15"},
+                new Object[]{"chrome", "latest", "macOS 10.15"},
+
+                new Object[]{"perf", "latest", "macOS 10.15"},
+                new Object[]{"perf", "latest", "Windows 7"},
+                new Object[]{"perf", "latest", "Windows 10"}
+
         };
+        
     }
 
 	/*********************************************************************/
@@ -66,11 +83,19 @@ public class TestBase  {
     	
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
+        if (browser.equals("perf")) {
+            capabilities.setCapability("capturePerformance", true);
+            browser = "chrome";
+            methodName = "Performance Test";
+        } 
+
         capabilities.setCapability(CapabilityType.BROWSER_NAME, browser);
         capabilities.setCapability(CapabilityType.VERSION, version);
         capabilities.setCapability(CapabilityType.PLATFORM, os);
         capabilities.setCapability("name", methodName);
-
+        
+        capabilities.setCapability("extendedDebugging", true);
+        
         if (buildTag != null) {
             capabilities.setCapability("build", buildTag);
         }
