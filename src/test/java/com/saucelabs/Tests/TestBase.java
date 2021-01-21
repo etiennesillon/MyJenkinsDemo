@@ -39,27 +39,18 @@ public class TestBase  {
     	
         return new Object[][]{
         	
-                new Object[]{"internet explorer", "latest", "Windows 7"},
-                new Object[]{"firefox", "latest", "Windows 7"},
-                new Object[]{"chrome", "latest", "Windows 7"},
+            new Object[]{"perf", "latest", "macOS 10.15"},
+            new Object[]{"perf", "latest", "Windows 10"},
 
-                new Object[]{"internet explorer", "latest", "Windows 8"},
-                new Object[]{"firefox", "latest", "Windows 8"},
-                new Object[]{"chrome", "latest", "Windows 8"},
+            new Object[]{"MicrosoftEdge", "latest", "Windows 10"},
+            new Object[]{"internet explorer", "latest", "Windows 10"},
+            new Object[]{"firefox", "latest", "Windows 10"},
+            new Object[]{"chrome", "latest", "Windows 10"},
 
-                new Object[]{"MicrosoftEdge", "latest", "Windows 10"},
-                new Object[]{"internet explorer", "latest", "Windows 10"},
-                new Object[]{"firefox", "latest", "Windows 10"},
-                new Object[]{"chrome", "latest", "Windows 10"},
-
-                new Object[]{"MicrosoftEdge", "latest", "macOS 10.15"},
-                new Object[]{"firefox", "latest", "macOS 10.15"},
-                new Object[]{"safari", "latest", "macOS 10.15"},
-                new Object[]{"chrome", "latest", "macOS 10.15"},
-
-                new Object[]{"perf", "latest", "macOS 10.15"},
-                new Object[]{"perf", "latest", "Windows 7"},
-                new Object[]{"perf", "latest", "Windows 10"}
+            new Object[]{"MicrosoftEdge", "latest", "macOS 10.15"},
+            new Object[]{"firefox", "latest", "macOS 10.15"},
+            new Object[]{"safari", "latest", "macOS 10.15"},
+            new Object[]{"chrome", "latest", "macOS 10.15"},
 
         };
         
