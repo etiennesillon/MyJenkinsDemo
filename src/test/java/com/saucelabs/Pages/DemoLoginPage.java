@@ -22,19 +22,22 @@ public class DemoLoginPage extends PageBase {
     /***************************************************************/
     
     public static String url = "http://www.saucedemo.com";
+    
+    public boolean isFail;
 
     /***************************************************************/
     
-    public static DemoLoginPage visitPage(WebDriver driver) {
-    	DemoLoginPage page = new DemoLoginPage(driver);
+    public static DemoLoginPage visitPage(WebDriver driver, boolean isFail) {
+    	DemoLoginPage page = new DemoLoginPage(driver, isFail);
         page.visitPage();
         return page;
     }
 
     /***************************************************************/
     
-    public DemoLoginPage(WebDriver driver) {
+    public DemoLoginPage(WebDriver driver, boolean isFail) {
         super(driver);
+    	this.isFail = isFail;
         PageFactory.initElements(driver, this);
     }
 
@@ -47,6 +50,10 @@ public class DemoLoginPage extends PageBase {
     /***************************************************************/
     
     public DemoShopPage login(String userName, String password) {
+    	
+    	if(isFail) {
+    		password = "failed";
+    	}
     	
     	this.userName.sendKeys(userName);
     	this.password.sendKeys(password);

@@ -13,17 +13,23 @@ import com.saucelabs.Pages.DemoShopPage;
 
 public class DemoEnd2EndTest extends TestBase {
 	
+	/*********************************************************************/
+
     private static String USERNAME = "standard_user";
     private static String PASSWD = "secret_sauce";
+    
+	/*********************************************************************/
 
     @org.testng.annotations.Test(dataProvider = "hardCodedBrowsers")
     public void loginTest(String browser, String version, String os, Method method) throws MalformedURLException, InvalidElementStateException, UnexpectedException {
     	
         this.createDriver(browser, version, os, method.getName());
         WebDriver driver = this.getWebDriver();
+        
+//        boolean isFail = IS_FAIL && browser.equals(IE) ? true : false;
 
         this.annotate("Visiting Demo Login page...");
-        DemoLoginPage loginPage = DemoLoginPage.visitPage(driver);
+        DemoLoginPage loginPage = DemoLoginPage.visitPage(driver, IS_FAIL);
 
         this.annotate(String.format("Login in with: \"%s\"", USERNAME));
         DemoShopPage shopPage = loginPage.login(USERNAME, PASSWD);
@@ -31,8 +37,6 @@ public class DemoEnd2EndTest extends TestBase {
         this.annotate(String.format("Add item and go to cart", USERNAME));
         DemoCartPage cart = shopPage.selectItemAndGotToCart();
         
-        driver.quit();
-
     }
 
 }

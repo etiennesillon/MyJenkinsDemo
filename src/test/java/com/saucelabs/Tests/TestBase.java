@@ -18,6 +18,12 @@ public class TestBase  {
 	
 	/*********************************************************************/
 
+    public static boolean IS_FAIL = false; 						// Fail IE tests for Failure Analysis 
+
+    public static String MANUAL_BUILD = "jenkins-MyJenkinsDemo-984"; 	// When running manually 
+
+	/*********************************************************************/
+
     public String buildTag = System.getenv("BUILD_TAG");
 
     public String username = System.getenv("SAUCE_USERNAME");
@@ -25,7 +31,19 @@ public class TestBase  {
     public String accesskey = System.getenv("SAUCE_ACCESS_KEY");
     
 	public String SAUCE_URL = "http://" + username + ":" + accesskey + "@ondemand.saucelabs.com:80/wd/hub";
-
+	
+	public static final String EDGE = "MicrosoftEdge", 
+							   IE = "internet explorer",
+							   FIREFOX = "firefox",
+							   CHROME = "chrome",
+							   SAFARI = "safari";
+	
+	public static final String MACOS = "macOS 10.15",
+							   WIN10 = "Windows 10";
+	
+	public static final String LATEST = "latest",
+							   PERF = "perf";
+	
 	/*********************************************************************/
 
 	private ThreadLocal<WebDriver> webDriver = new ThreadLocal<WebDriver>();
@@ -39,18 +57,18 @@ public class TestBase  {
     	
         return new Object[][]{
         	
-            new Object[]{"perf", "latest", "macOS 10.15"},
-            new Object[]{"perf", "latest", "Windows 10"},
+            new Object[]{PERF, LATEST, MACOS},
+            new Object[]{PERF, LATEST, WIN10},
 
-            new Object[]{"MicrosoftEdge", "latest", "Windows 10"},
-            new Object[]{"internet explorer", "latest", "Windows 10"},
-            new Object[]{"firefox", "latest", "Windows 10"},
-            new Object[]{"chrome", "latest", "Windows 10"},
+            new Object[]{EDGE, LATEST, WIN10},
+            new Object[]{IE, LATEST, WIN10},
+            new Object[]{FIREFOX, LATEST, WIN10},
+            new Object[]{CHROME, LATEST, WIN10},
 
-            new Object[]{"MicrosoftEdge", "latest", "macOS 10.15"},
-            new Object[]{"firefox", "latest", "macOS 10.15"},
-            new Object[]{"safari", "latest", "macOS 10.15"},
-            new Object[]{"chrome", "latest", "macOS 10.15"},
+            new Object[]{SAFARI, LATEST, MACOS},
+            new Object[]{EDGE, LATEST, MACOS},
+            new Object[]{FIREFOX, LATEST, MACOS},
+            new Object[]{CHROME, LATEST, MACOS}
 
         };
         
@@ -87,6 +105,10 @@ public class TestBase  {
         
         capabilities.setCapability("extendedDebugging", true);
         
+        if (buildTag == null) {
+        	buildTag = MANUAL_BUILD;
+        }
+
         if (buildTag != null) {
             capabilities.setCapability("build", buildTag);
         }
