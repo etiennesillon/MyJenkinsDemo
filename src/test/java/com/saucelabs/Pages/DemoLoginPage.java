@@ -21,7 +21,7 @@ public class DemoLoginPage extends PageBase {
         
     /***************************************************************/
     
-    public static String url = "http://www.saucedemo.com";
+    public static String url = "http://www.saucedemo.com/v1";
     
     public boolean isFail;
 
